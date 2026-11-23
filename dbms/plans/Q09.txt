@@ -1,0 +1,49 @@
+
+========================================================================
+QUERY 09 — RUN 1
+========================================================================
+Update on cars  (cost=0.14..8.16 rows=0 width=0) (actual time=0.153..0.154 rows=0.00 loops=1)
+  Buffers: shared hit=27
+  ->  Index Scan using idx_cars_owner on cars  (cost=0.14..8.16 rows=1 width=7) (actual time=0.008..0.009 rows=1.00 loops=1)
+        Index Cond: (owner_id = 50)
+        Filter: (car_id = 1)
+        Rows Removed by Filter: 3
+        Index Searches: 1
+        Buffers: shared hit=2
+Planning:
+  Buffers: shared hit=123
+Planning Time: 0.422 ms
+Execution Time: 0.258 ms
+
+========================================================================
+QUERY 09 — RUN 2
+========================================================================
+Update on cars  (cost=0.14..8.16 rows=0 width=0) (actual time=0.157..0.157 rows=0.00 loops=1)
+  Buffers: shared hit=27
+  ->  Index Scan using idx_cars_owner on cars  (cost=0.14..8.16 rows=1 width=7) (actual time=0.012..0.013 rows=1.00 loops=1)
+        Index Cond: (owner_id = 50)
+        Filter: (car_id = 1)
+        Rows Removed by Filter: 3
+        Index Searches: 1
+        Buffers: shared hit=2
+Planning:
+  Buffers: shared hit=123
+Planning Time: 0.409 ms
+Execution Time: 0.260 ms
+
+========================================================================
+QUERY 09 — RUN 3
+========================================================================
+Update on cars  (cost=0.14..8.16 rows=0 width=0) (actual time=0.151..0.152 rows=0.00 loops=1)
+  Buffers: shared hit=27
+  ->  Index Scan using idx_cars_owner on cars  (cost=0.14..8.16 rows=1 width=7) (actual time=0.011..0.012 rows=1.00 loops=1)
+        Index Cond: (owner_id = 50)
+        Filter: (car_id = 1)
+        Rows Removed by Filter: 3
+        Index Searches: 1
+        Buffers: shared hit=2
+Planning:
+  Buffers: shared hit=123
+Planning Time: 0.429 ms
+Execution Time: 0.255 ms
+

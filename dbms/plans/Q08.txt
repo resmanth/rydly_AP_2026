@@ -1,0 +1,109 @@
+
+========================================================================
+QUERY 08 — RUN 1
+========================================================================
+Sort  (cost=33.45..33.46 rows=4 width=254) (actual time=0.083..0.085 rows=3.00 loops=1)
+  Sort Key: (sum(b.total_price)) DESC
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=14
+  ->  GroupAggregate  (cost=33.33..33.41 rows=4 width=254) (actual time=0.066..0.069 rows=3.00 loops=1)
+        Group Key: ci.name
+        Buffers: shared hit=11
+        ->  Sort  (cost=33.33..33.34 rows=4 width=238) (actual time=0.051..0.052 rows=3.00 loops=1)
+              Sort Key: ci.name
+              Sort Method: quicksort  Memory: 25kB
+              Buffers: shared hit=11
+              ->  Nested Loop  (cost=19.45..33.29 rows=4 width=238) (actual time=0.029..0.033 rows=3.00 loops=1)
+                    Buffers: shared hit=8
+                    ->  Hash Join  (cost=19.30..31.26 rows=4 width=20) (actual time=0.024..0.026 rows=3.00 loops=1)
+                          Hash Cond: (c.car_id = b.car_id)
+                          Buffers: shared hit=2
+                          ->  Seq Scan on cars c  (cost=0.00..11.40 rows=140 width=8) (actual time=0.003..0.003 rows=4.00 loops=1)
+                                Buffers: shared hit=1
+                          ->  Hash  (cost=19.25..19.25 rows=4 width=20) (actual time=0.012..0.013 rows=3.00 loops=1)
+                                Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                                Buffers: shared hit=1
+                                ->  Seq Scan on bookings b  (cost=0.00..19.25 rows=4 width=20) (actual time=0.006..0.007 rows=3.00 loops=1)
+                                      Filter: ((status)::text = 'confirmed'::text)
+                                      Buffers: shared hit=1
+                    ->  Index Scan using cities_pkey on cities ci  (cost=0.15..0.51 rows=1 width=222) (actual time=0.002..0.002 rows=1.00 loops=3)
+                          Index Cond: (city_id = c.city_id)
+                          Index Searches: 3
+                          Buffers: shared hit=6
+Planning:
+  Buffers: shared hit=289
+Planning Time: 0.937 ms
+Execution Time: 0.157 ms
+
+========================================================================
+QUERY 08 — RUN 2
+========================================================================
+Sort  (cost=33.45..33.46 rows=4 width=254) (actual time=0.088..0.089 rows=3.00 loops=1)
+  Sort Key: (sum(b.total_price)) DESC
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=14
+  ->  GroupAggregate  (cost=33.33..33.41 rows=4 width=254) (actual time=0.069..0.071 rows=3.00 loops=1)
+        Group Key: ci.name
+        Buffers: shared hit=11
+        ->  Sort  (cost=33.33..33.34 rows=4 width=238) (actual time=0.055..0.055 rows=3.00 loops=1)
+              Sort Key: ci.name
+              Sort Method: quicksort  Memory: 25kB
+              Buffers: shared hit=11
+              ->  Nested Loop  (cost=19.45..33.29 rows=4 width=238) (actual time=0.032..0.036 rows=3.00 loops=1)
+                    Buffers: shared hit=8
+                    ->  Hash Join  (cost=19.30..31.26 rows=4 width=20) (actual time=0.028..0.030 rows=3.00 loops=1)
+                          Hash Cond: (c.car_id = b.car_id)
+                          Buffers: shared hit=2
+                          ->  Seq Scan on cars c  (cost=0.00..11.40 rows=140 width=8) (actual time=0.005..0.005 rows=4.00 loops=1)
+                                Buffers: shared hit=1
+                          ->  Hash  (cost=19.25..19.25 rows=4 width=20) (actual time=0.015..0.015 rows=3.00 loops=1)
+                                Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                                Buffers: shared hit=1
+                                ->  Seq Scan on bookings b  (cost=0.00..19.25 rows=4 width=20) (actual time=0.007..0.008 rows=3.00 loops=1)
+                                      Filter: ((status)::text = 'confirmed'::text)
+                                      Buffers: shared hit=1
+                    ->  Index Scan using cities_pkey on cities ci  (cost=0.15..0.51 rows=1 width=222) (actual time=0.001..0.001 rows=1.00 loops=3)
+                          Index Cond: (city_id = c.city_id)
+                          Index Searches: 3
+                          Buffers: shared hit=6
+Planning:
+  Buffers: shared hit=289
+Planning Time: 0.860 ms
+Execution Time: 0.184 ms
+
+========================================================================
+QUERY 08 — RUN 3
+========================================================================
+Sort  (cost=33.45..33.46 rows=4 width=254) (actual time=0.100..0.101 rows=3.00 loops=1)
+  Sort Key: (sum(b.total_price)) DESC
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=14
+  ->  GroupAggregate  (cost=33.33..33.41 rows=4 width=254) (actual time=0.083..0.086 rows=3.00 loops=1)
+        Group Key: ci.name
+        Buffers: shared hit=11
+        ->  Sort  (cost=33.33..33.34 rows=4 width=238) (actual time=0.070..0.071 rows=3.00 loops=1)
+              Sort Key: ci.name
+              Sort Method: quicksort  Memory: 25kB
+              Buffers: shared hit=11
+              ->  Nested Loop  (cost=19.45..33.29 rows=4 width=238) (actual time=0.049..0.053 rows=3.00 loops=1)
+                    Buffers: shared hit=8
+                    ->  Hash Join  (cost=19.30..31.26 rows=4 width=20) (actual time=0.045..0.048 rows=3.00 loops=1)
+                          Hash Cond: (c.car_id = b.car_id)
+                          Buffers: shared hit=2
+                          ->  Seq Scan on cars c  (cost=0.00..11.40 rows=140 width=8) (actual time=0.004..0.004 rows=4.00 loops=1)
+                                Buffers: shared hit=1
+                          ->  Hash  (cost=19.25..19.25 rows=4 width=20) (actual time=0.026..0.027 rows=3.00 loops=1)
+                                Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                                Buffers: shared hit=1
+                                ->  Seq Scan on bookings b  (cost=0.00..19.25 rows=4 width=20) (actual time=0.005..0.006 rows=3.00 loops=1)
+                                      Filter: ((status)::text = 'confirmed'::text)
+                                      Buffers: shared hit=1
+                    ->  Index Scan using cities_pkey on cities ci  (cost=0.15..0.51 rows=1 width=222) (actual time=0.001..0.001 rows=1.00 loops=3)
+                          Index Cond: (city_id = c.city_id)
+                          Index Searches: 3
+                          Buffers: shared hit=6
+Planning:
+  Buffers: shared hit=289
+Planning Time: 0.876 ms
+Execution Time: 0.180 ms
+

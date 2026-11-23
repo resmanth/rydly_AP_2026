@@ -1,0 +1,52 @@
+
+========================================================================
+QUERY 06 — RUN 1
+========================================================================
+Update on bookings  (cost=0.15..8.17 rows=0 width=0) (actual time=0.028..0.028 rows=0.00 loops=1)
+  Buffers: shared hit=5
+  ->  Index Scan using bookings_pkey on bookings  (cost=0.15..8.17 rows=1 width=44) (actual time=0.003..0.003 rows=1.00 loops=1)
+        Index Cond: (booking_id = 1)
+        Filter: ((status)::text = 'pending'::text)
+        Index Searches: 1
+        Buffers: shared hit=2
+Planning:
+  Buffers: shared hit=8
+Planning Time: 0.038 ms
+Trigger for constraint bookings_car_id_fkey: time=0.376 calls=1
+Trigger for constraint bookings_user_id_fkey: time=0.222 calls=1
+Execution Time: 0.636 ms
+
+========================================================================
+QUERY 06 — RUN 2
+========================================================================
+Update on bookings  (cost=0.15..8.17 rows=0 width=0) (actual time=0.029..0.030 rows=0.00 loops=1)
+  Buffers: shared hit=5
+  ->  Index Scan using bookings_pkey on bookings  (cost=0.15..8.17 rows=1 width=44) (actual time=0.002..0.003 rows=1.00 loops=1)
+        Index Cond: (booking_id = 1)
+        Filter: ((status)::text = 'pending'::text)
+        Index Searches: 1
+        Buffers: shared hit=2
+Planning:
+  Buffers: shared hit=8
+Planning Time: 0.036 ms
+Trigger for constraint bookings_car_id_fkey: time=0.353 calls=1
+Trigger for constraint bookings_user_id_fkey: time=0.205 calls=1
+Execution Time: 0.596 ms
+
+========================================================================
+QUERY 06 — RUN 3
+========================================================================
+Update on bookings  (cost=0.15..8.17 rows=0 width=0) (actual time=0.045..0.045 rows=0.00 loops=1)
+  Buffers: shared hit=5
+  ->  Index Scan using bookings_pkey on bookings  (cost=0.15..8.17 rows=1 width=44) (actual time=0.003..0.004 rows=1.00 loops=1)
+        Index Cond: (booking_id = 1)
+        Filter: ((status)::text = 'pending'::text)
+        Index Searches: 1
+        Buffers: shared hit=2
+Planning:
+  Buffers: shared hit=8
+Planning Time: 0.035 ms
+Trigger for constraint bookings_car_id_fkey: time=0.394 calls=1
+Trigger for constraint bookings_user_id_fkey: time=0.220 calls=1
+Execution Time: 0.669 ms
+

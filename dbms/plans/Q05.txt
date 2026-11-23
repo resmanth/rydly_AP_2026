@@ -1,0 +1,103 @@
+
+========================================================================
+QUERY 05 — RUN 1
+========================================================================
+Sort  (cost=20.87..20.87 rows=1 width=280) (actual time=0.066..0.067 rows=4.00 loops=1)
+  Sort Key: (COALESCE(sum(b.total_price), '0'::numeric)) DESC
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=15
+  ->  GroupAggregate  (cost=20.83..20.86 rows=1 width=280) (actual time=0.046..0.050 rows=4.00 loops=1)
+        Group Key: c.car_id
+        Buffers: shared hit=12
+        ->  Sort  (cost=20.83..20.84 rows=1 width=260) (actual time=0.035..0.036 rows=4.00 loops=1)
+              Sort Key: c.car_id
+              Sort Method: quicksort  Memory: 25kB
+              Buffers: shared hit=12
+              ->  Nested Loop Left Join  (cost=4.33..20.82 rows=1 width=260) (actual time=0.015..0.022 rows=4.00 loops=1)
+                    Buffers: shared hit=9
+                    ->  Index Scan using idx_cars_owner on cars c  (cost=0.14..8.16 rows=1 width=240) (actual time=0.003..0.003 rows=4.00 loops=1)
+                          Index Cond: (owner_id = 50)
+                          Index Searches: 1
+                          Buffers: shared hit=2
+                    ->  Bitmap Heap Scan on bookings b  (cost=4.18..12.65 rows=1 width=24) (actual time=0.003..0.003 rows=0.75 loops=4)
+                          Recheck Cond: (c.car_id = car_id)
+                          Filter: ((status)::text = 'confirmed'::text)
+                          Heap Blocks: exact=3
+                          Buffers: shared hit=7
+                          ->  Bitmap Index Scan on idx_bookings_car  (cost=0.00..4.18 rows=4 width=0) (actual time=0.001..0.001 rows=2.50 loops=4)
+                                Index Cond: (car_id = c.car_id)
+                                Index Searches: 4
+                                Buffers: shared hit=4
+Planning:
+  Buffers: shared hit=249
+Planning Time: 0.750 ms
+Execution Time: 0.121 ms
+
+========================================================================
+QUERY 05 — RUN 2
+========================================================================
+Sort  (cost=20.87..20.87 rows=1 width=280) (actual time=0.076..0.077 rows=4.00 loops=1)
+  Sort Key: (COALESCE(sum(b.total_price), '0'::numeric)) DESC
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=15
+  ->  GroupAggregate  (cost=20.83..20.86 rows=1 width=280) (actual time=0.054..0.058 rows=4.00 loops=1)
+        Group Key: c.car_id
+        Buffers: shared hit=12
+        ->  Sort  (cost=20.83..20.84 rows=1 width=260) (actual time=0.040..0.041 rows=4.00 loops=1)
+              Sort Key: c.car_id
+              Sort Method: quicksort  Memory: 25kB
+              Buffers: shared hit=12
+              ->  Nested Loop Left Join  (cost=4.33..20.82 rows=1 width=260) (actual time=0.017..0.025 rows=4.00 loops=1)
+                    Buffers: shared hit=9
+                    ->  Index Scan using idx_cars_owner on cars c  (cost=0.14..8.16 rows=1 width=240) (actual time=0.003..0.004 rows=4.00 loops=1)
+                          Index Cond: (owner_id = 50)
+                          Index Searches: 1
+                          Buffers: shared hit=2
+                    ->  Bitmap Heap Scan on bookings b  (cost=4.18..12.65 rows=1 width=24) (actual time=0.004..0.004 rows=0.75 loops=4)
+                          Recheck Cond: (c.car_id = car_id)
+                          Filter: ((status)::text = 'confirmed'::text)
+                          Heap Blocks: exact=3
+                          Buffers: shared hit=7
+                          ->  Bitmap Index Scan on idx_bookings_car  (cost=0.00..4.18 rows=4 width=0) (actual time=0.001..0.001 rows=2.50 loops=4)
+                                Index Cond: (car_id = c.car_id)
+                                Index Searches: 4
+                                Buffers: shared hit=4
+Planning:
+  Buffers: shared hit=249
+Planning Time: 0.804 ms
+Execution Time: 0.143 ms
+
+========================================================================
+QUERY 05 — RUN 3
+========================================================================
+Sort  (cost=20.87..20.87 rows=1 width=280) (actual time=0.069..0.069 rows=4.00 loops=1)
+  Sort Key: (COALESCE(sum(b.total_price), '0'::numeric)) DESC
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=15
+  ->  GroupAggregate  (cost=20.83..20.86 rows=1 width=280) (actual time=0.048..0.051 rows=4.00 loops=1)
+        Group Key: c.car_id
+        Buffers: shared hit=12
+        ->  Sort  (cost=20.83..20.84 rows=1 width=260) (actual time=0.035..0.036 rows=4.00 loops=1)
+              Sort Key: c.car_id
+              Sort Method: quicksort  Memory: 25kB
+              Buffers: shared hit=12
+              ->  Nested Loop Left Join  (cost=4.33..20.82 rows=1 width=260) (actual time=0.015..0.022 rows=4.00 loops=1)
+                    Buffers: shared hit=9
+                    ->  Index Scan using idx_cars_owner on cars c  (cost=0.14..8.16 rows=1 width=240) (actual time=0.004..0.004 rows=4.00 loops=1)
+                          Index Cond: (owner_id = 50)
+                          Index Searches: 1
+                          Buffers: shared hit=2
+                    ->  Bitmap Heap Scan on bookings b  (cost=4.18..12.65 rows=1 width=24) (actual time=0.003..0.003 rows=0.75 loops=4)
+                          Recheck Cond: (c.car_id = car_id)
+                          Filter: ((status)::text = 'confirmed'::text)
+                          Heap Blocks: exact=3
+                          Buffers: shared hit=7
+                          ->  Bitmap Index Scan on idx_bookings_car  (cost=0.00..4.18 rows=4 width=0) (actual time=0.001..0.001 rows=2.50 loops=4)
+                                Index Cond: (car_id = c.car_id)
+                                Index Searches: 4
+                                Buffers: shared hit=4
+Planning:
+  Buffers: shared hit=249
+Planning Time: 0.783 ms
+Execution Time: 0.134 ms
+

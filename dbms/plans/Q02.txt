@@ -1,0 +1,76 @@
+
+========================================================================
+QUERY 02 — RUN 1
+========================================================================
+Nested Loop  (cost=23.45..39.50 rows=1 width=256) (actual time=0.043..0.044 rows=1.00 loops=1)
+  Buffers: shared hit=5 dirtied=1
+  ->  Index Scan using cities_name_key on cities ci  (cost=0.15..8.17 rows=1 width=4) (actual time=0.007..0.007 rows=1.00 loops=1)
+        Index Cond: ((name)::text = 'Sonipat'::text)
+        Index Searches: 1
+        Buffers: shared hit=2
+  ->  Index Scan using idx_cars_city on cars c  (cost=23.30..31.32 rows=1 width=260) (actual time=0.034..0.034 rows=1.00 loops=1)
+        Index Cond: (city_id = ci.city_id)
+        Filter: (is_available AND (NOT (ANY (car_id = (hashed SubPlan 1).col1))))
+        Rows Removed by Filter: 1
+        Index Searches: 1
+        Buffers: shared hit=3 dirtied=1
+        SubPlan 1
+          ->  Seq Scan on bookings  (cost=0.00..22.95 rows=82 width=4) (actual time=0.018..0.018 rows=1.00 loops=1)
+                Filter: (((status)::text <> 'cancelled'::text) AND (pickup_date <= '2026-12-10'::date) AND (return_date >= '2026-12-05'::date))
+                Rows Removed by Filter: 2
+                Buffers: shared hit=1 dirtied=1
+Planning:
+  Buffers: shared hit=331
+Planning Time: 1.051 ms
+Execution Time: 0.095 ms
+
+========================================================================
+QUERY 02 — RUN 2
+========================================================================
+Nested Loop  (cost=23.45..39.50 rows=1 width=256) (actual time=0.037..0.038 rows=1.00 loops=1)
+  Buffers: shared hit=5
+  ->  Index Scan using cities_name_key on cities ci  (cost=0.15..8.17 rows=1 width=4) (actual time=0.009..0.009 rows=1.00 loops=1)
+        Index Cond: ((name)::text = 'Sonipat'::text)
+        Index Searches: 1
+        Buffers: shared hit=2
+  ->  Index Scan using idx_cars_city on cars c  (cost=23.30..31.32 rows=1 width=260) (actual time=0.025..0.026 rows=1.00 loops=1)
+        Index Cond: (city_id = ci.city_id)
+        Filter: (is_available AND (NOT (ANY (car_id = (hashed SubPlan 1).col1))))
+        Rows Removed by Filter: 1
+        Index Searches: 1
+        Buffers: shared hit=3
+        SubPlan 1
+          ->  Seq Scan on bookings  (cost=0.00..22.95 rows=82 width=4) (actual time=0.006..0.007 rows=1.00 loops=1)
+                Filter: (((status)::text <> 'cancelled'::text) AND (pickup_date <= '2026-12-10'::date) AND (return_date >= '2026-12-05'::date))
+                Rows Removed by Filter: 2
+                Buffers: shared hit=1
+Planning:
+  Buffers: shared hit=331
+Planning Time: 0.943 ms
+Execution Time: 0.096 ms
+
+========================================================================
+QUERY 02 — RUN 3
+========================================================================
+Nested Loop  (cost=23.45..39.50 rows=1 width=256) (actual time=0.038..0.039 rows=1.00 loops=1)
+  Buffers: shared hit=5
+  ->  Index Scan using cities_name_key on cities ci  (cost=0.15..8.17 rows=1 width=4) (actual time=0.010..0.010 rows=1.00 loops=1)
+        Index Cond: ((name)::text = 'Sonipat'::text)
+        Index Searches: 1
+        Buffers: shared hit=2
+  ->  Index Scan using idx_cars_city on cars c  (cost=23.30..31.32 rows=1 width=260) (actual time=0.026..0.027 rows=1.00 loops=1)
+        Index Cond: (city_id = ci.city_id)
+        Filter: (is_available AND (NOT (ANY (car_id = (hashed SubPlan 1).col1))))
+        Rows Removed by Filter: 1
+        Index Searches: 1
+        Buffers: shared hit=3
+        SubPlan 1
+          ->  Seq Scan on bookings  (cost=0.00..22.95 rows=82 width=4) (actual time=0.007..0.007 rows=1.00 loops=1)
+                Filter: (((status)::text <> 'cancelled'::text) AND (pickup_date <= '2026-12-10'::date) AND (return_date >= '2026-12-05'::date))
+                Rows Removed by Filter: 2
+                Buffers: shared hit=1
+Planning:
+  Buffers: shared hit=331
+Planning Time: 1.033 ms
+Execution Time: 0.096 ms
+

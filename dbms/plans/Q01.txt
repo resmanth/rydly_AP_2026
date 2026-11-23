@@ -1,0 +1,70 @@
+
+========================================================================
+QUERY 01 — RUN 1
+========================================================================
+Sort  (cost=16.35..16.36 rows=1 width=478) (actual time=0.052..0.053 rows=1.00 loops=1)
+  Sort Key: c.price_per_day
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=7
+  ->  Nested Loop  (cost=0.29..16.34 rows=1 width=478) (actual time=0.031..0.032 rows=1.00 loops=1)
+        Buffers: shared hit=4
+        ->  Index Scan using cities_name_key on cities ci  (cost=0.15..8.17 rows=1 width=222) (actual time=0.011..0.011 rows=1.00 loops=1)
+              Index Cond: ((name)::text = 'Delhi'::text)
+              Index Searches: 1
+              Buffers: shared hit=2
+        ->  Index Scan using idx_cars_city on cars c  (cost=0.14..8.17 rows=1 width=264) (actual time=0.017..0.018 rows=1.00 loops=1)
+              Index Cond: (city_id = ci.city_id)
+              Filter: (is_available AND ((category)::text = 'SUV'::text) AND ((transmission)::text = 'Manual'::text))
+              Index Searches: 1
+              Buffers: shared hit=2
+Planning:
+  Buffers: shared hit=259
+Planning Time: 1.175 ms
+Execution Time: 0.106 ms
+
+========================================================================
+QUERY 01 — RUN 2
+========================================================================
+Sort  (cost=16.35..16.36 rows=1 width=478) (actual time=0.041..0.042 rows=1.00 loops=1)
+  Sort Key: c.price_per_day
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=7
+  ->  Nested Loop  (cost=0.29..16.34 rows=1 width=478) (actual time=0.020..0.021 rows=1.00 loops=1)
+        Buffers: shared hit=4
+        ->  Index Scan using cities_name_key on cities ci  (cost=0.15..8.17 rows=1 width=222) (actual time=0.009..0.009 rows=1.00 loops=1)
+              Index Cond: ((name)::text = 'Delhi'::text)
+              Index Searches: 1
+              Buffers: shared hit=2
+        ->  Index Scan using idx_cars_city on cars c  (cost=0.14..8.17 rows=1 width=264) (actual time=0.009..0.009 rows=1.00 loops=1)
+              Index Cond: (city_id = ci.city_id)
+              Filter: (is_available AND ((category)::text = 'SUV'::text) AND ((transmission)::text = 'Manual'::text))
+              Index Searches: 1
+              Buffers: shared hit=2
+Planning:
+  Buffers: shared hit=259
+Planning Time: 0.738 ms
+Execution Time: 0.093 ms
+
+========================================================================
+QUERY 01 — RUN 3
+========================================================================
+Sort  (cost=16.35..16.36 rows=1 width=478) (actual time=0.039..0.040 rows=1.00 loops=1)
+  Sort Key: c.price_per_day
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=7
+  ->  Nested Loop  (cost=0.29..16.34 rows=1 width=478) (actual time=0.020..0.021 rows=1.00 loops=1)
+        Buffers: shared hit=4
+        ->  Index Scan using cities_name_key on cities ci  (cost=0.15..8.17 rows=1 width=222) (actual time=0.010..0.010 rows=1.00 loops=1)
+              Index Cond: ((name)::text = 'Delhi'::text)
+              Index Searches: 1
+              Buffers: shared hit=2
+        ->  Index Scan using idx_cars_city on cars c  (cost=0.14..8.17 rows=1 width=264) (actual time=0.008..0.008 rows=1.00 loops=1)
+              Index Cond: (city_id = ci.city_id)
+              Filter: (is_available AND ((category)::text = 'SUV'::text) AND ((transmission)::text = 'Manual'::text))
+              Index Searches: 1
+              Buffers: shared hit=2
+Planning:
+  Buffers: shared hit=259
+Planning Time: 0.744 ms
+Execution Time: 0.091 ms
+
