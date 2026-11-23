@@ -21,7 +21,7 @@
 
 ## Notes
 
-- Each query was executed three times using PostgreSQL `EXPLAIN ANALYZE`.
+- Each query was executed three times using PostgreSQL EXPLAIN (ANALYZE, BUFFERS).
 - Queries 3, 6 and 9 were executed inside transactions and rolled back.
 - Before each Q6 run, booking 1 was temporarily set to `pending` inside the transaction.
 - Execution plans for all three runs of each query are stored in `dbms/plans/`.
